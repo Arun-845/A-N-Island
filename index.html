@@ -3,28 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wayside Sidebar</title>
+    <title>Login Page</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <button class="close-btn" onclick="closeSidebar()">×</button>
-        <h2>Wayside Navigation</h2>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </div>
-
-    <!-- Main content -->
-    <div class="main-content">
-        <button class="open-btn" onclick="openSidebar()">☰ Open Sidebar</button>
-        <h1>Welcome to the Website</h1>
-        <p>This is some main content for the page. You can add any information here.</p>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="login-form" action="#" method="POST">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" id="login-btn">Login</button>
+            <p id="error-message" class="error-message"></p>
+        </form>
+        <p class="register-link">Don't have an account? <a href="#">Register</a></p>
     </div>
 
     <script src="script.js"></script>
@@ -33,7 +31,7 @@
 CSS Code (styles.css):
 css
 Copy
-/* Basic reset */
+/* General reset */
 * {
     margin: 0;
     padding: 0;
@@ -43,96 +41,109 @@ Copy
 /* Body styling */
 body {
     font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-/* Sidebar styling */
-.sidebar {
-    height: 100%;
-    width: 250px;
-    position: fixed;
-    top: 0;
-    left: -250px; /* Hide the sidebar off-screen by default */
-    background-color: #333;
-    color: white;
-    padding-top: 60px;
-    transition: 0.3s;
-    z-index: 1000;
+/* Login container */
+.login-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
 }
 
-.sidebar h2 {
+h2 {
     text-align: center;
     margin-bottom: 20px;
-    font-size: 24px;
 }
 
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
+.input-group {
+    margin-bottom: 20px;
 }
 
-.sidebar ul li {
-    padding: 15px;
-    text-align: center;
-}
-
-.sidebar ul li a {
-    color: white;
-    text-decoration: none;
+label {
     display: block;
-    font-size: 18px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
-.sidebar ul li:hover {
-    background-color: #575757;
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 25px;
-    font-size: 36px;
-    color: white;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-/* Main content styling */
-.main-content {
-    padding: 20px;
-    transition: margin-left 0.3s;
-}
-
-.open-btn {
-    font-size: 30px;
-    background-color: #333;
+button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 10px 15px;
+    border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.open-btn:hover {
-    background-color: #575757;
+button:hover {
+    background-color: #45a049;
 }
 
-/* Responsive styles */
-@media screen and (max-width: 768px) {
-    .sidebar {
-        width: 200px;
-    }
+/* Error message styling */
+.error-message {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Register link */
+.register-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.register-link a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
 }
 JavaScript Code (script.js):
 javascript
 Copy
-// Function to open the sidebar
-function openSidebar() {
-    document.getElementById("sidebar").style.left = "0";  // Slide in the sidebar
-    document.querySelector(".main-content").style.marginLeft = "250px"; // Shift main content
-}
+// Form validation logic
+document.getElementById("login-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent form from submitting immediately
 
-// Function to close the sidebar
-function closeSidebar() {
-    document.getElementById("sidebar").style.left = "-250px";  // Slide out the sidebar
-    document.querySelector(".main-content").style.marginLeft = "0"; // Reset main content
-}
+    // Get the values of the username and password fields
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    // Error message element
+    const errorMessage = document.getElementById("error-message");
+
+    // Simple validation checks
+    if (username === "" || password === "") {
+        errorMessage.textContent = "Please fill in both fields.";
+    } else if (username !== "admin" || password !== "password123") {
+        errorMessage.textContent = "Invalid username or password.";
+    } else {
+        errorMessage.textContent = "";
+        alert("Login successful!");
+        // You can redirect to a different page after a successful login
+        // window.location.href = "dashboard.html";
+    }
+});
