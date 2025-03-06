@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wayside Sidebar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <button class="close-btn" onclick="closeSidebar()">×</button>
+        <h2>Wayside Navigation</h2>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <button class="open-btn" onclick="openSidebar()">☰ Open Sidebar</button>
+        <h1>Welcome to the Website</h1>
+        <p>This is some main content for the page. You can add any information here.</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+CSS Code (styles.css):
+css
+Copy
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Sidebar styling */
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: -250px; /* Hide the sidebar off-screen by default */
+    background-color: #333;
+    color: white;
+    padding-top: 60px;
+    transition: 0.3s;
+    z-index: 1000;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    text-align: center;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    font-size: 18px;
+}
+
+.sidebar ul li:hover {
+    background-color: #575757;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 36px;
+    color: white;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* Main content styling */
+.main-content {
+    padding: 20px;
+    transition: margin-left 0.3s;
+}
+
+.open-btn {
+    font-size: 30px;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.open-btn:hover {
+    background-color: #575757;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+}
+JavaScript Code (script.js):
+javascript
+Copy
+// Function to open the sidebar
+function openSidebar() {
+    document.getElementById("sidebar").style.left = "0";  // Slide in the sidebar
+    document.querySelector(".main-content").style.marginLeft = "250px"; // Shift main content
+}
+
+// Function to close the sidebar
+function closeSidebar() {
+    document.getElementById("sidebar").style.left = "-250px";  // Slide out the sidebar
+    document.querySelector(".main-content").style.marginLeft = "0"; // Reset main content
+}
